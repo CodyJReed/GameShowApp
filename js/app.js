@@ -45,6 +45,7 @@ function addPhraseToDisplay(arr) {
     if (li.text != ' ') {
       li.setAttribute('class', 'letter');
     }
+//Add li element to parentNode
     ul.appendChild(li);
   }
 }
@@ -53,3 +54,18 @@ function addPhraseToDisplay(arr) {
 
 const phraseArray = getRandomPhraseArray(phrases);
 addPhraseToDisplay(phraseArray);
+
+//checkLetter function
+
+function checkLetter(button) {
+  const lis = ul.querySelectorAll('.letter');
+  for (let i = 0; i < lis.length; i += 1) {
+    if (lis[i] == button) {
+      lis[i].style.display = 'show';
+      const match = li[i];
+      return match;
+    } else {
+      return null;
+    }
+  }
+}
