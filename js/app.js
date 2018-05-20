@@ -4,8 +4,16 @@ const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 const startButton = document.querySelector('.btn__reset');
 const ul = phrase.querySelector('ul');
+const keyrow = qwerty.querySelectorAll('.keyrow');
+const keyboard = qwerty.getElementsByTagName('button');
+const live = document.querySelector('img');
+const li = live.parentNode;
+const ol = li.parentNode;
 
 
+
+
+let letterFound = false;
 let correct   = 0;
 let incorrect = 0; //Missed
 
@@ -55,17 +63,43 @@ function addPhraseToDisplay(arr) {
 const phraseArray = getRandomPhraseArray(phrases);
 addPhraseToDisplay(phraseArray);
 
+//Keyboard addEventListener
+for (let i = 0; i < keyboard.length; i += 1) {
+  keyboard[i].addEventListener('click', (e) => {
+
+//If Keyboard is clicked ID the key's letter
+    let keyLetter = keyboard[i].innerHTML;
+
+//Compare keyLetter to lisLetter with function
+    checkLetter(keyLetter);
+    keyboard[i].disabled = true;
+
+  });
+}
+
 //checkLetter function
 
-function checkLetter(button) {
-  const lis = ul.querySelectorAll('.letter');
-  for (let i = 0; i < lis.length; i += 1) {
-    if (lis[i] == button) {
-      lis[i].style.display = 'show';
-      const match = li[i];
-      return match;
-    } else {
-      return null;
+function checkLetter(keyLetter) {
+  let lis = document.querySelectorAll('.letter');
+
+  for (let i = 0; i < lis.length; i ++) {
+
+    let lisLetter = lis[i].innerHTML;
+
+    letterFound = false;
+    if ( lisLetter == keyLetter ) {
+       letterFound = true;
+      lis[i].setAttribute('class', 'show');
+
+      // return letterFound;
     }
   }
+
+
+  if (letterFound == false) {
+
+    li.removeChild(live);
+    incorrect += 1;
+  }
+
 }
